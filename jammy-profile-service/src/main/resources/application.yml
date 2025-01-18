@@ -1,0 +1,7 @@
+server:
+  port: 8090
+
+#jwt:
+#  private.key: classpath:app.key
+#  public.key: classpath:app.pub
+
