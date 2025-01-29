@@ -1,12 +1,18 @@
 package com.jammy.entities;
 
-import com.jammy.models.Instrument;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table("instruments")
+@Table(name = "instrument")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class InstrumentEntity {
     @Id
-    @Enumerated(EnumType.STRING)
-    private Instrument instrument;
+    private String instrument;
 }

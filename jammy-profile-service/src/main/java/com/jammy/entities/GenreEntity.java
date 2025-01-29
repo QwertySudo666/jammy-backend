@@ -1,12 +1,18 @@
 package com.jammy.entities;
 
-import com.jammy.models.Genre;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table("genres")
+@Table(name = "genre")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GenreEntity {
     @Id
-    @Enumerated(EnumType.STRING)
-    private Genre genre;
+    private String genre;
 }

@@ -1,76 +1,51 @@
 package com.jammy.services;
 
-import com.jammy.dtos.CreateProfileRequest;
-import com.jammy.dtos.UpdateProfileRequest;
-import com.jammy.dtos.ProfileDto;
 import com.jammy.entities.ProfileEntity;
+import com.jammy.entities.ProfileGenreEntity;
+import com.jammy.entities.ProfileInstrumentEntity;
+import com.jammy.models.Profile;
 import com.jammy.repos.ProfileRepository;
-import lombok.AllArgsConstructor;
+import org.hibernate.exception.DataException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class ProfileService {
-    private final ProfileRepository profileRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
 
-    public ProfileDto createUserProfile(CreateProfileRequest request) {
-        ProfileEntity profileEntity = ProfileServiceMapper.mapToEntity(request);
-        ProfileEntity savedProfile = profileRepository.save(profileEntity);
-        return mapToDto(savedProfile);
+    public Profile createProfile(Profile profile) {
+        var entity = new ProfileEntity(
+                profile.getId(),
+                profile.getUsername(),
+                profile.getEmail(),
+                profile.getName(),
+                profile.getAge(),
+                profile.getBio(),
+                profile.getLocation(),
+                profile.getAvatarUrl(),
+                profile.getGenres().stream().map(it -> new ProfileGenreEntity(profile.getId(), it)).toList(),
+                profile.getInstruments().stream().map(it -> new ProfileInstrumentEntity(profile.getId(), it)).toList()
+        );
+        var savedProfile = profileRepository.save(entity);
+        return profile;
     }
 
-    public Optional<ProfileDto> getProfileById(UUID id) {
-        return profileRepository.findById(id).map(this::mapToDto);
-    }
-
-    public ProfileDto updateProfile(UUID id, UpdateProfileRequest request) {
-        ProfileEntity profileEntity = profileRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found"));
-
-        profileEntity.setUsername(request.getUsername());
-        profileEntity.setAvatarUrl(request.getAvatarUrl());
-        profileEntity.setBio(request.getBio());
-        profileEntity.setLocation(request.getLocation());
-
-        ProfileEntity updatedProfile = profileRepository.save(profileEntity);
-
-        return mapToDto(updatedProfile);
-    }
-
-    public void deleteProfile(UUID id) {
-        profileRepository.deleteById(id);
-    }
-
-    private ProfileDto mapToDto(ProfileEntity entity) {
-        return new ProfileDto(
+    public Profile getProfile(UUID id) throws DataException {
+        var entity = profileRepository.findById(id).get();
+        return new Profile(
                 entity.getId(),
                 entity.getUsername(),
-                entity.getFirstName(),
-                entity.getSecondName(),
                 entity.getEmail(),
-                entity.getAge,
-                entity.getAvatarUrl(),
+                entity.getName(),
+                entity.getAge(),
                 entity.getBio(),
-                entity.getLocation()
+                entity.getLocation(),
+                entity.getAvatarUrl(),
+                entity.getGenres().stream().map(ProfileGenreEntity::getGenre).toList(),
+                entity.getInstruments().stream().map(ProfileInstrumentEntity::getInstrument).toList()
         );
-    }
-
-    private static class ProfileServiceMapper {
-        static ProfileEntity mapToEntity(CreateProfileRequest request) {
-            ProfileEntity profileEntity = new ProfileEntity(
-                    UUID.randomUUID(),
-                    request.getUsername(),
-                    request.getEmail(),
-                    request.getPassword(), // TODO: Hash the password
-                    request.getFirstName(),
-                    request.getSecondName(),
-                    request.getAvatarUrl(),
-                    request.getBio(),
-                    request.getLocation()
-            );
-            return profileEntity;
-        }
     }
 }
