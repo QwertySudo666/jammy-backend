@@ -1,0 +1,26 @@
+version: '3.9'
+#TODO: ADD VOLUMES to store date after stopping containers
+services:
+
+  postgres-auth:
+    image: postgres
+    container_name: jammy-auth
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: jammy-auth
+    ports:
+      - 5432:5432
+
+  postgres-profile:
+    image: postgres
+    container_name: jammy-profile
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: jammy-profile
+      PGPORT: 5442
+    ports:
+      - 5442:5442
