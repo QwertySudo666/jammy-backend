@@ -1,0 +1,44 @@
+package com.jammy.models;
+
+public enum Genre {
+    BLACK_METAL,
+    THRASH_METAL,
+    DEATH_METAL,
+    MELODIC_DEATH_METAL,
+    SYMPHONIC_METAL,
+    METALCORE,
+    POST_HARDCORE,
+    HARDCORE,
+    PROGRESSIVE_METAL,
+    NU_METAL,
+
+    ALTERNATIVE_ROCK,
+    HARD_ROCK,
+    GRUNGE,
+    CLASSIC_ROCK,
+    POP_PUNK,
+    PUNK_ROCK,
+
+    CHICAGO_BLUES,
+    COUNTRY_BLUES,
+    DELTA_BLUES,
+    ELECTRIC_BLUES,
+
+    SWING,
+    BEBOP,
+    COOL_JAZZ,
+    FREE_JAZZ,
+
+    POP,
+    INDIE_POP,
+    SYNTH_POP,
+
+    FOLK,
+    COUNTRY,
+    HIP_HOP,
+    EDM,
+    CLASSICAL,
+    REGGAE,
+    FUNK,
+    SOUL
+}

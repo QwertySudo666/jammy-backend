@@ -12,15 +12,15 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Profile {
     private UUID id = UUID.randomUUID();
-    private String username;
-    private String email;
+    private String username = "IVanidZE";
+    private String email = "ivanidze@gmail.com";
     private String name = "Ivan";
-    private Integer age;
-    private String bio;
-    private String location;
-    private String avatarUrl;
-    private List<String> genres = List.of("METAL");
-    private List<String> instruments = List.of("GUITAR");
+    private Integer age = 100;
+    private String bio = "Ivan - the oldest man in the dorm";
+    private String location = "Lviv";
+    private String avatarUrl = "https://vanidze.com/avatar.png";
+    private List<Genre> genres = List.of(Genre.PROGRESSIVE_METAL, Genre.DEATH_METAL);
+    private List<Instrument> instruments = List.of(Instrument.BASS);
 }
 
 //{

@@ -2,6 +2,7 @@ package com.jammy.controllers;
 
 import com.jammy.dto.RegisterUserRequest;
 import com.jammy.dto.UserModel;
+import com.jammy.kafka.KafkaProducer;
 import com.jammy.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final KafkaProducer kafkaProducer;
 
     @GetMapping("/")
     public String hello(Authentication authentication) {
@@ -23,6 +25,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserModel> register(@RequestBody RegisterUserRequest request) {
         var user = userService.register(request);
+        kafkaProducer.send("topic1", user.toString());
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 }

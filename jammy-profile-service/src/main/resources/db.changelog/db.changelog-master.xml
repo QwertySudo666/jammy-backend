@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="001-create-genres-table" author="your_name">
+        <createTable tableName="genres">
+            <column name="genre" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create-instruments-table" author="your_name">
+        <createTable tableName="instruments">
+            <column name="instrument" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="003-create-profiles-table" author="your_name">
+        <createTable tableName="profiles">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" defaultValue="Ivan"/>
+            <column name="age" type="INTEGER"/>
+            <column name="bio" type="TEXT"/>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="avatar_url" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="004-create-profile-genres-table" author="your_name">
+        <createTable tableName="profile_genres">
+            <column name="profile_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="genre" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="profile_genres" baseColumnNames="profile_id"
+                                 referencedTableName="profiles" referencedColumnNames="id"
+                                 constraintName="fk_profile_genres_profile"/>
+        <addForeignKeyConstraint baseTableName="profile_genres" baseColumnNames="genre"
+                                 referencedTableName="genres" referencedColumnNames="genre"
+                                 constraintName="fk_profile_genres_genre"/>
+    </changeSet>
+
+    <changeSet id="005-create-profile-instruments-table" author="your_name">
+        <createTable tableName="profile_instruments">
+            <column name="profile_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="instrument" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="profile_instruments" baseColumnNames="profile_id"
+                                 referencedTableName="profiles" referencedColumnNames="id"
+                                 constraintName="fk_profile_instruments_profile"/>
+        <addForeignKeyConstraint baseTableName="profile_instruments" baseColumnNames="instrument"
+                                 referencedTableName="instruments" referencedColumnNames="instrument"
+                                 constraintName="fk_profile_instruments_instrument"/>
+    </changeSet>
+
+    <changeSet id="006-insert-default-records-genres" author="your_name">
+        <sql>
+            INSERT INTO genres(genre)
+            VALUES ('BLACK_METAL'),
+                   ('THRASH_METAL'),
+                   ('DEATH_METAL'),
+                   ('MELODIC_DEATH_METAL'),
+                   ('SYMPHONIC_METAL'),
+                   ('METALCORE'),
+                   ('POST_HARDCORE'),
+                   ('HARDCORE'),
+                   ('PROGRESSIVE_METAL'),
+                   ('NU_METAL'),
+                   ('ALTERNATIVE_ROCK'),
+                   ('HARD_ROCK'),
+                   ('GRUNGE'),
+                   ('CLASSIC_ROCK'),
+                   ('POP_PUNK'),
+                   ('PUNK_ROCK'),
+                   ('CHICAGO_BLUES'),
+                   ('COUNTRY_BLUES'),
+                   ('DELTA_BLUES'),
+                   ('ELECTRIC_BLUES'),
+                   ('SWING'),
+                   ('BEBOP'),
+                   ('COOL_JAZZ'),
+                   ('FREE_JAZZ'),
+                   ('POP'),
+                   ('INDIE_POP'),
+                   ('SYNTH_POP'),
+                   ('FOLK'),
+                   ('COUNTRY'),
+                   ('HIP_HOP'),
+                   ('EDM'),
+                   ('CLASSICAL'),
+                   ('REGGAE'),
+                   ('FUNK'),
+                   ('SOUL');
+        </sql>
+    </changeSet>
+
+    <changeSet id="007-insert-default-records-instruments" author="your_name">
+        <sql>
+            INSERT INTO instruments(instrument)
+            VALUES ('GUITAR'),
+                   ('BASS'),
+                   ('DRUMS'),
+                   ('KEYBOARD'),
+                   ('PIANO'),
+                   ('VOCALS'),
+                   ('VIOLIN'),
+                   ('CELLO'),
+                   ('TRUMPET'),
+                   ('SAXOPHONE'),
+                   ('FLUTE'),
+                   ('UKULELE'),
+                   ('HARMONICA'),
+                   ('BANJO'),
+                   ('DJ_TURNTABLE'),
+                   ('SYNTHESIZER'),
+                   ('DOUBLE_BASS'),
+                   ('PERCUSSION');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

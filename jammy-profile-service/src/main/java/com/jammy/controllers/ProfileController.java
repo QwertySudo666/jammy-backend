@@ -23,14 +23,16 @@ public class ProfileController {
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable("id") UUID id) {
         Profile profile = profileService.getProfile(id);
+        //TODO: send kafka event(profile.created)
         return new ResponseEntity<Profile>(profile, HttpStatus.OK);
     }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ProfileDto> updateProfile(@PathVariable UUID id, @RequestBody UpdateProfileRequest request) {
-//        ProfileDto Profile = profileService.updateProfile(id, request);
-//        return ResponseEntity.ok(Profile);
-//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Profile> updateProfile(@PathVariable("id") UUID id, @RequestBody Profile profile) {
+        var updatedProfile = profileService.updateProfile(id, profile);
+        //TODO: send kafka event(profile.updated)
+        return ResponseEntity.ok(updatedProfile);
+    }
 //
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Void> deleteProfile(@PathVariable UUID id) {

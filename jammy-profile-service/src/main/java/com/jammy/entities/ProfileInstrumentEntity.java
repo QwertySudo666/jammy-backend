@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "profile_instrument")
+@Table(name = "profile_instruments")
 @IdClass(ProfileInstrumentId.class)
 @Data
 @AllArgsConstructor

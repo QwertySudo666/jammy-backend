@@ -12,6 +12,7 @@
   <modules>
     <module>jammy-auth-service</module>
     <module>jammy-profile-service</module>
+      <module>jammy-filter-service</module>
   </modules>
 
   <properties>

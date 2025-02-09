@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "profile_genre")
+@Table(name = "profile_genres")
 @IdClass(ProfileGenreId.class)
 @Data
 @AllArgsConstructor
