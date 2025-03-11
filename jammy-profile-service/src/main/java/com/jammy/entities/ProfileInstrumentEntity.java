@@ -2,10 +2,7 @@ package com.jammy.entities;
 
 
 import com.jammy.entities.ids.ProfileInstrumentId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileInstrumentEntity {
-    @Id
+    @Id @Column(name = "profile_id")
     private UUID profileId;
     @Id
     private String instrument;

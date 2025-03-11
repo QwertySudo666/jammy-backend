@@ -5,3 +5,11 @@ server:
 #  private.key: classpath:app.key
 #  public.key: classpath:app.pub
 
+#spring:
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    consumer:
+#      group-id: jammy-group
+#      auto-offset-reset: earliest
+#    producer:
+#      retries: 3

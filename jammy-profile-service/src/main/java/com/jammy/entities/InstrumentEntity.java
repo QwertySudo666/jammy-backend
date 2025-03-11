@@ -1,11 +1,11 @@
 package com.jammy.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "instruments")
@@ -14,5 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InstrumentEntity {
     @Id
+    @Column(name = "instrument")
     private String instrument;
+
+//    @ManyToMany(mappedBy = "instruments")
+//    private List<ProfileEntity> profiles;
 }

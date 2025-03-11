@@ -5,8 +5,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaConsumer {
-    @KafkaListener(topics = "topic1", groupId = "gr1")
-    public void listenGroupFoo(String message) {
-        System.out.println("Received Message in group foo: " + message);
+    @KafkaListener(topics = "profiles", groupId = "jammy-group")
+    public void listenProfiles(String message) {
+        System.out.println("Received profile: " + message);
+    }
+
+    @KafkaListener(topics = "filters", groupId = "jammy-group")
+    public void listenFilters(String message) {
+        System.out.println("Received filter: " + message);
+    }
+
+    @KafkaListener(topics = "matches", groupId = "jammy-group")
+    public void listenMatches(String message) {
+        System.out.println("Received match: " + message);
     }
 }

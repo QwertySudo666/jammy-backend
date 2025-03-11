@@ -23,9 +23,24 @@ public class ProfileEntity {
     private String bio = "Ivan - the oldest man in the dorm";
     private String location = "Lviv";
     private String avatarUrl = "https://vanidze.com/avatar.png";
-//    @OneToMany(cascade = CascadeType.ALL)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profileId")
-    private List<ProfileGenreEntity> genres;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profileId")
-    private List<ProfileInstrumentEntity> instruments;
+//    @OneToMany(mappedBy = "profileId", cascade = CascadeType.ALL)
+//    private List<ProfileGenreEntity> genres;
+//    @OneToMany(mappedBy = "profileId", cascade = CascadeType.ALL)
+//    private List<ProfileInstrumentEntity> instruments;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "profile_genres",
+            joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre")
+    )
+    private List<GenreEntity> genres;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "profile_instruments",
+            joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "instrument")
+    )
+    private List<InstrumentEntity> instruments;
 }

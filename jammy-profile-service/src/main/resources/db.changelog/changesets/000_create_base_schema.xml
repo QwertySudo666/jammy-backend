@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="000_create_base_schema" author="your_name">
+        <!-- Genres -->
+        <createTable tableName="genres">
+            <column name="genre" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Instruments -->
+        <createTable tableName="instruments">
+            <column name="instrument" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Profiles -->
+        <createTable tableName="profiles">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="age" type="INTEGER"/>
+            <column name="bio" type="TEXT"/>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="avatar_url" type="VARCHAR(255)"/>
+        </createTable>
+
+        <!-- Filter Subscription -->
+        <createTable tableName="filter_subscription">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="subscriber_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age" type="INTEGER"/>
+            <column name="bio_search" type="VARCHAR(255)"/>
+            <column name="location" type="VARCHAR(255)"/>
+        </createTable>
+
+        <!-- Profile-Genres Many-to-Many -->
+        <createTable tableName="profile_genres">
+            <column name="profile_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="profile_genres" baseColumnNames="profile_id"
+                                 referencedTableName="profiles" referencedColumnNames="id"
+                                 constraintName="fk_profile_genres_profile"/>
+        <addForeignKeyConstraint baseTableName="profile_genres" baseColumnNames="genre"
+                                 referencedTableName="genres" referencedColumnNames="genre"
+                                 constraintName="fk_profile_genres_genre"/>
+
+        <!-- Profile-Instruments Many-to-Many -->
+        <createTable tableName="profile_instruments">
+            <column name="profile_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instrument" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="profile_instruments" baseColumnNames="profile_id"
+                                 referencedTableName="profiles" referencedColumnNames="id"
+                                 constraintName="fk_profile_instruments_profile"/>
+        <addForeignKeyConstraint baseTableName="profile_instruments" baseColumnNames="instrument"
+                                 referencedTableName="instruments" referencedColumnNames="instrument"
+                                 constraintName="fk_profile_instruments_instrument"/>
+
+        <createTable tableName="filter_subscription_genres">
+            <column name="filter_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="filter_subscription_genres" baseColumnNames="filter_id"
+                                 referencedTableName="filter_subscription" referencedColumnNames="id"
+                                 constraintName="fk_filter_genres_filter"/>
+
+        <createTable tableName="filter_subscription_instruments">
+            <column name="filter_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instrument" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="filter_subscription_instruments" baseColumnNames="filter_id"
+                                 referencedTableName="filter_subscription" referencedColumnNames="id"
+                                 constraintName="fk_filter_instruments_filter"/>
+
+        <createTable tableName="matches">
+            <column name="profile_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="subscriber_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="filter_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <sqlFile path="db.changelog/changesets/sql/default/000_fill_instruments_and_genres.sql"/>
+    </changeSet>
+
+</databaseChangeLog>
