@@ -12,6 +12,8 @@
   <modules>
     <module>jammy-auth-service</module>
     <module>jammy-profile-service</module>
+    <module>testcontainers-demo</module>
+    <module>jammy-media-service</module>
   </modules>
 
   <properties>
