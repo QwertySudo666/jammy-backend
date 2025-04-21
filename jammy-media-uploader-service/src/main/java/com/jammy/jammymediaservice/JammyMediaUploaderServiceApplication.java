@@ -4,10 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JammyMediaServiceApplication {
-
+public class JammyMediaUploaderServiceApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(JammyMediaServiceApplication.class, args);
+		SpringApplication.run(JammyMediaUploaderServiceApplication.class, args);
 	}
-
 }
